@@ -32,7 +32,7 @@ jobs:
         pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget
     - name: Clone source code
       run: |
-        git clone --depth=1 https://github.com/txf76/rt-n56u.git /opt/rt-n56u
+        git clone --depth=1 https://github.com/chongshengB/rt-n56u.git /opt/rt-n56u
         cd /opt/rt-n56u/toolchain-mipsel
         sh dl_toolchain.sh
         mkdir -p /opt/images/
@@ -46,10 +46,42 @@ jobs:
         exit 1
         fi
         cp -f configs/templates/$TNAME.config .config
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_MENTOHUST/d' .config 
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_SCUTCLIENT/d' .config 
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS/d' .config 
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_SSSERVER/d' .config 
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_DNSFORWARDER/d' .config 
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_ADBYBY/d' .config 
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_FRPC/d' .config 
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_FRPS/d' .config 
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_TUNSAFE/d' .config 
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_ALIDDNS/d' .config 
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_SMARTDNS/d' .config
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_SRELAY/d' .config
         sed -i 's/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=n/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=y/g' .config
-        sed -i '/CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS/d' .config
-        echo "CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS=y" >> .config
-        echo "CONFIG_FIRMWARE_INCLUDE_V2RAY=n" >> .config
+        echo "CONFIG_FIRMWARE_INCLUDE_MENTOHUST=n" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_SCUTCLIENT=n" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS=y" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_SSOBFS=n" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_SSSERVER=n" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_DNSFORWARDER=n" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_ADBYBY=y" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_FRPC=n" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_FRPS=n" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_TUNSAFE=n" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_ALIDDNS=y" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_SMARTDNS=y" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_SMARTDNSBIN=y" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_V2RAY=n" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_TROJAN=n" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_KOOLPROXY=y" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_CADDY=y" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_CADDYBIN=n" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_ADGUARDHOME=y" >> .config
+        echo "CONFIG_FIRMWARE_INCLUDE_SRELAY=n" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_WYY=y" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_WYYBIN=n" >> .config 
+        echo "CONFIG_FIRMWARE_INCLUDE_ZEROTIER=n" >> .config #zerotier ~1.3M 
         ################################################################################################
         #因不同型号配置功能不一样，所以先把配置项删除，如果你自己要添加其他的，也要写上删除这一条，切记！！！
         ################################################################################################
